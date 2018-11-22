@@ -3,6 +3,7 @@ PATH
   specs:
     movies_nearby (0.1.0)
       nokogiri
+      require_all
 
 GEM
   remote: https://rubygems.org/
