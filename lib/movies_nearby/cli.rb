@@ -15,9 +15,11 @@ class MoviesNearby::CLI
     @zip_code = "10453"
   end
 
-  def url
+  def make_url
     @url = BASE + @borough + "-ny/" + @zip_code + "/theaters/"
   end
+
+
 
 #  def info
 #   info = gets.strip
