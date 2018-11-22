@@ -21,12 +21,29 @@ class MoviesNearby::CLI
 
 
 
-#  def info
-#   info = gets.strip
-  #  until info.to_i > 0 || info == "exit"
-  #    puts "Please enter a valid number or type exit"
-  #    info = gets.strip
-  #  end
+  def borough_info
+   input = gets.strip
+    until input.to_i > 0 || input == "exit"
+      puts "Please enter a valid number or type exit"
+      input = gets.strip
+    end
+    if input == 1
+      info = "bronx"
+    elsif input == 2
+      info = "manhattan"
+   end
+   info
+  end
+
+  #def zip_info
+  #  input = gets.strip
+  #   until input.to_i > 0 || input == "exit"
+    #   puts "Please enter a valid number or type exit"
+    #   input = gets.strip
+    # end
+    # if input.length < 5
+
+    #end
   #  info
-  #end
+#  end
 end
