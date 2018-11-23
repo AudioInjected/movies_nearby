@@ -5,7 +5,7 @@ class MoviesNearby::CLI
   def call
    greeting
    make_url
-   list_theaters
+   #list_theaters
   end
 
   def greeting
