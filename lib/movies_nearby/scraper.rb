@@ -19,6 +19,7 @@ class MoviesNearby::Scraper
       times.each {|time| theater_hash[:times] << time.text}
       theater_array << theater_hash
     end
+    theater_array
   end
 
 end
