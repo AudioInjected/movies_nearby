@@ -22,5 +22,3 @@ class MoviesNearby::Theater
   end
  
 end
-
-hash_array = [{name: "Test", movies: "some movies", times: "9:00pm"},{name: "Test2", movies: "some movies2", times: "11:00pm"} ]
