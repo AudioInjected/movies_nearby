@@ -8,16 +8,17 @@ class MoviesNearby::Scraper
   def scrape
     theater_array = []
     doc = Nokogiri::HTML(open(url))
-  #  theaters = doc.css("div.theater").css("div.title").text.tr("\t", "").tr("\n", "").split(".").last
-     theaters.each do |theater|
-       theater_hash = {}
-       theater_hash[:movies] = []
-       #theater_hash[:times] = []
-       theater_hash[:name] = theater.css("div.title").text.tr("\t", "").tr("\n", "").split(".").last
-       theater_hash[:movies] << theater.css("div.movie-listing").css(".movietitle").text.gsub(/\(\d*\)/, " ").split("   ")
-       theater_hash[:times] = theater.css("div.movie-listing").css(".showtimes-list").text
-     end
-    binding.pry
+    theaters = doc.css("div.theater")
+    theaters.each do |theater|
+      times = theater.css("div.movie-listing").css(".showtimes-list")
+      theater_hash = {}
+      theater_hash[:movies] = []
+      theater_hash[:times] = []
+      theater_hash[:movies] << theater.css("div.movie-listing").css(".movietitle").text.gsub(/\(\d*\)/, " ").split("   ")
+      theater_hash[:name] = theater.css("div.title").text.tr("\t", "").tr("\n", "").split(".").last
+      times.each {|time| theater_hash[:times] << time.text}
+      theater_array << theater_hash
+    end
   end
 
 end
