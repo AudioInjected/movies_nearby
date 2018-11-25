@@ -27,9 +27,10 @@ class MoviesNearby::Scraper
     theater_array
   end
   
-  def scrape_movie_page(url)
+  def scrape_movie_page
+    #binding.pry
     movie = Nokogiri::HTML(open(url))
-    puts movie.xpath("//*[@id='movie-overview']/div/div/div[2]/p[3]/text()")
+    movie_page =  movie.xpath("//*[@id='movie-overview']/div/div/div[2]/p[3]/text()")
   end
 
 end

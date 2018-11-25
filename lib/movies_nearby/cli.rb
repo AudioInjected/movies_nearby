@@ -1,6 +1,6 @@
 class MoviesNearby::CLI
   BASE = "https://www.moviefone.com/showtimes/"
-  attr_accessor = :borough, :zip_code, :url
+  attr_accessor = :borough, :zip_code, :url, :page_url
 
   def call
    greeting
@@ -8,6 +8,7 @@ class MoviesNearby::CLI
    theater_array = MoviesNearby::Scraper.new(self.url).scrape
    MoviesNearby::Theater.create_from_collection(theater_array)
    list_theaters
+   movie_info
   end
 
   def greeting
@@ -27,8 +28,17 @@ class MoviesNearby::CLI
   def zip_code
     @zip_code
   end
+  
   def url
     @url
+  end
+  
+  def page_url 
+    @page_url
+  end
+  
+  def page_url=(url)
+    @page_url = url
   end
 
   def make_url
@@ -72,7 +82,10 @@ class MoviesNearby::CLI
     puts "Please enter one of the choices for more details on the movie"
     input = gets.strip
     index = input.to_i - 1
-    url = theater.urls[index]
-    binding.pry
+    self.page_url = theater.urls[index]
+  end
+  
+  def movie_info
+   puts MoviesNearby::Scraper.new(self.page_url).scrape_movie_page
   end
 end
