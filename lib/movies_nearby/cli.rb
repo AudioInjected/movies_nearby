@@ -7,6 +7,7 @@ class MoviesNearby::CLI
    make_url
    theater_array = MoviesNearby::Scraper.new(self.url).scrape
    MoviesNearby::Theater.create_from_collection(theater_array)
+   list_theaters
   end
 
   def greeting
@@ -58,7 +59,7 @@ class MoviesNearby::CLI
   end
 
   def list_theaters
-    puts "Here are the theaters for #{self.zip_code} in #{self.borough} NY"
-    puts Theater.all.each_with_index(1) {|element, index| puts "#{index}: #{element}"}
+    puts "Here are the theaters for #{self.zip_code} in #{self.borough.capitalize} NY"
+   # puts MoviesNearby::Theater.all.each_with_index(1) {|element, index| puts "#{index}: #{element}"}
   end
 end
