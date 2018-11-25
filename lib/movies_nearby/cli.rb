@@ -60,6 +60,19 @@ class MoviesNearby::CLI
 
   def list_theaters
     puts "Here are the theaters for #{self.zip_code} in #{self.borough.capitalize} NY"
-   # puts MoviesNearby::Theater.all.each_with_index(1) {|element, index| puts "#{index}: #{element}"}
+    puts
+    MoviesNearby::Theater.all.each.with_index(1) {|theater, index| puts "#{index}: #{theater.name}"}
+    puts
+    puts "Please enter one of the choices for more details:"
+    input = gets.strip
+    index = input.to_i - 1
+    theater = MoviesNearby::Theater.all[index]
+    puts theater.name
+    theater.movies.each.with_index(1) {|movie, index| puts "#{index}: #{movie}: #{theater.times[index - 1].tr("m", " ")}"}
+    puts "Please enter one of the choices for more details on the movie"
+    input = gets.strip
+    index = input.to_i - 1
+    url = theater.urls[index]
+    binding.pry
   end
 end
