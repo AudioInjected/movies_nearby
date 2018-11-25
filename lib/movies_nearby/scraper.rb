@@ -11,7 +11,7 @@ class MoviesNearby::Scraper
     theaters = doc.css("div.theater")
     theaters.each do |theater|
       times = theater.css("div.movie-listing").css(".showtimes-list")
-      urls = theater.css("div.movie-listing a")
+      urls = theater.css(".moviePoster a")
       theater_hash = {}
       #theater_hash[:movies] = []
       theater_hash[:times] = []
@@ -20,9 +20,9 @@ class MoviesNearby::Scraper
       theater_hash[:name] = theater.css("div.title").text.tr("\t", "").tr("\n", "").split(".").last
       urls.each {|url| theater_hash[:urls] << url.attributes["href"].value}
       theater_hash[:urls].uniq!
-      #binding.pry
       times.each {|time| theater_hash[:times] << time.text}
       theater_array << theater_hash
+      #binding.pry
     end
     theater_array
   end
@@ -30,7 +30,8 @@ class MoviesNearby::Scraper
   def scrape_movie_page
     #binding.pry
     movie = Nokogiri::HTML(open(url))
-    movie_page =  movie.xpath("//*[@id='movie-overview']/div/div/div[2]/p[3]/text()")
+   # binding.pry
+    movie_page = movie.css("strong + p").text
   end
 
 end
