@@ -86,6 +86,6 @@ class MoviesNearby::CLI
   end
   
   def movie_info
-   puts MoviesNearby::Scraper.new(self.page_url).scrape_movie_page
+   MoviesNearby::Scraper.new(self.page_url).scrape_movie_page
   end
 end

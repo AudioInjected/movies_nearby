@@ -22,16 +22,17 @@ class MoviesNearby::Scraper
       theater_hash[:urls].uniq!
       times.each {|time| theater_hash[:times] << time.text}
       theater_array << theater_hash
-      #binding.pry
     end
     theater_array
   end
   
   def scrape_movie_page
-    #binding.pry
     movie = Nokogiri::HTML(open(url))
-   # binding.pry
-    movie_page = movie.css("strong + p").text
+    puts movie.css(".divider + strong").text
+    puts movie.css(".movie-rating-score +  p").text #release date
+    puts movie.css(".movie-rating-score + p + p strong").text.tr("\n", "").strip.split.join(" ")
+    puts movie.css("strong + p").text
+    binding.pry
   end
 
 end
