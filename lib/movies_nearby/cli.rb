@@ -1,6 +1,6 @@
 class MoviesNearby::CLI
   BASE = "https://www.moviefone.com/showtimes/"
-  attr_accessor = :borough, :zip_code, :url, :page_url
+  attr_accessor :borough, :zip_code, :url, :page_url
 
   def call
    greeting
@@ -15,31 +15,12 @@ class MoviesNearby::CLI
     puts "Hello Welcome to Movies Nearby!"
     puts "Choose a borough and zip code to see what's playing nearby,"
     puts "Please enter a number corresponding to the borough or type exit to exit"
-    puts "1:The Bronx   2:Manhattan"
+    puts "1:The Bronx   2:Manhattan   3:Brooklyn  4: Staten-Island  5:Queens"  
     @borough = borough_info
     puts "Please enter your zip code"
     @zip_code = zip_info
   end
 
-  def borough
-    @borough
-  end
-
-  def zip_code
-    @zip_code
-  end
-  
-  def url
-    @url
-  end
-  
-  def page_url 
-    @page_url
-  end
-  
-  def page_url=(url)
-    @page_url = url
-  end
 
   def make_url
     @url = BASE + @borough + "-ny/" + @zip_code + "/theaters/"
@@ -55,6 +36,13 @@ class MoviesNearby::CLI
       info = "bronx"
     elsif input.to_i == 2
       info = "manhattan"
+      
+    elsif input.to_i == 3
+      info = "brooklyn"
+    elsif input.to_i == 4
+      info = "staten-island"
+     elsif input.to_i == 5
+      info = "queens"  
    end
    info
   end
