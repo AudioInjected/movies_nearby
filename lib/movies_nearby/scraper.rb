@@ -28,11 +28,12 @@ class MoviesNearby::Scraper
   
   def scrape_movie_page
     movie = Nokogiri::HTML(open(url))
-    puts movie.css(".divider + strong").text
+    puts 
     puts movie.css(".movie-rating-score +  p").text #release date
     puts movie.css(".movie-rating-score + p + p strong").text.tr("\n", "").strip.split.join(" ")
+    puts
     puts movie.css("strong + p").text
-    binding.pry
+    puts
   end
 
 end
