@@ -1,6 +1,6 @@
 # MoviesNearby
 
-This gem will allow you to see what movies are playing in nearby theaters based on the borough and zip code you enter..
+This gem will allow you to see what movies are playing nearby in NYC theaters based on the borough and zip code you enter..
 
 ## Installation
 
