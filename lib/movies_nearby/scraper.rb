@@ -1,11 +1,7 @@
 class MoviesNearby::Scraper
   #https://www.moviefone.com/showtimes/bronx-ny/10458/theaters/
-  attr_accessor :url
 
-  def initialize(url)
-   @url = url
-  end
-  def scrape
+  def self.scrape(url)
     theater_array = []
     doc = Nokogiri::HTML(open(url))
     theaters = doc.css("div.theater")
@@ -26,7 +22,7 @@ class MoviesNearby::Scraper
     theater_array
   end
   
-  def scrape_movie_page
+  def self.scrape_movie_page(url)
     movie = Nokogiri::HTML(open(url))
     puts 
     puts movie.css(".movie-rating-score +  p").text #release date

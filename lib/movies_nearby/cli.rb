@@ -5,7 +5,7 @@ class MoviesNearby::CLI
   def call
    greeting
    make_url
-   theater_array = MoviesNearby::Scraper.new(self.url).scrape
+   theater_array = MoviesNearby::Scraper.scrape(self.url)
    MoviesNearby::Theater.create_from_collection(theater_array)
    list_theaters
    movie_info
@@ -74,6 +74,6 @@ class MoviesNearby::CLI
   end
   
   def movie_info
-   MoviesNearby::Scraper.new(self.page_url).scrape_movie_page
+   MoviesNearby::Scraper.scrape_movie_page(self.page_url)
   end
 end
