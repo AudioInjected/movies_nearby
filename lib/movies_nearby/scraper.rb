@@ -24,8 +24,9 @@ class MoviesNearby::Scraper
   
   def self.scrape_movie_page(url)
     movie = Nokogiri::HTML(open(url))
-    puts 
-    puts movie.css(".movie-rating-score +  p").text #release date
+    puts
+    puts movie.css(".hero-title h1").text
+    puts movie.css(".movie-rating-score +  p").text 
     puts movie.css(".movie-rating-score + p + p strong").text.tr("\n", "").strip.split.join(" ")
     puts
     puts movie.css("strong + p").text

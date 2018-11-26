@@ -28,6 +28,8 @@ class MoviesNearby::CLI
    input = gets.strip 
    if input.downcase.include?("y")
      start 
+   else 
+     puts "Thank you for using Movies Nearby."
    end
  end
 
