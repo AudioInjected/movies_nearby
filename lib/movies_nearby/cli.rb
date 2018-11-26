@@ -7,8 +7,8 @@ class MoviesNearby::CLI
    make_url
    theater_array = MoviesNearby::Scraper.scrape(self.url)
    MoviesNearby::Theater.create_from_collection(theater_array)
-   list_theaters
-   movie_info
+   start
+  
   end
 
   def greeting
@@ -20,7 +20,16 @@ class MoviesNearby::CLI
     puts "Please enter your zip code"
     @zip_code = zip_info
   end
-
+ 
+ def start 
+   list_theaters
+   movie_info
+   puts "Do you want to continue? Yes: No:"
+   input = gets.strip 
+   if input.downcase.include?("y")
+     start 
+   end
+ end
 
   def make_url
     @url = BASE + @borough + "-ny/" + @zip_code + "/theaters/"
