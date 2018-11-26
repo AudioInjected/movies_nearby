@@ -15,7 +15,7 @@ class MoviesNearby::Scraper
       theater_hash[:movies] = theater.css("div.movie-listing").css(".movietitle").text.gsub(/\(\d*\)/, " ").split("   ")
       theater_hash[:name] = theater.css("div.title").text.tr("\t", "").tr("\n", "").split(".").last
       urls.each {|url| theater_hash[:urls] << url.attributes["href"].value}
-      theater_hash[:urls].uniq!
+      theater_hash[:urls].uniq
       times.each {|time| theater_hash[:times] << time.text}
       theater_array << theater_hash
     end
