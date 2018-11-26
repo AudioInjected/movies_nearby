@@ -9,7 +9,7 @@ class MoviesNearby::Theater
 
   def self.create_from_collection(theater_array)
     theater_array.each do |theater_hash|
-    theater = MoviesNearby::Theater.new(theater_hash)
+    MoviesNearby::Theater.new(theater_hash)
    end
   end
   

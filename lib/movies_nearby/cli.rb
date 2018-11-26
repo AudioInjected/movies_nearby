@@ -8,7 +8,6 @@ class MoviesNearby::CLI
    theater_array = MoviesNearby::Scraper.scrape(self.url)
    MoviesNearby::Theater.create_from_collection(theater_array)
    start
-  
   end
 
   def greeting
@@ -39,15 +38,14 @@ class MoviesNearby::CLI
 
   def borough_info
    input = gets.strip
-    until input.to_i > 0 || input == "exit"
-      puts "Please enter a valid number or type exit"
-      input = gets.strip
+   until input.to_i > 0 || input == "exit"
+     puts "Please enter a valid number or type exit"
+     input = gets.strip
     end
     if input.to_i == 1
       info = "bronx"
     elsif input.to_i == 2
       info = "manhattan"
-      
     elsif input.to_i == 3
       info = "brooklyn"
     elsif input.to_i == 4
