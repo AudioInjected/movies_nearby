@@ -1,11 +1,10 @@
 class MoviesNearby::CLI
   BASE = "https://www.moviefone.com/showtimes/"
-  attr_accessor :borough, :zip_code, :url, :page_url
 
   def call
    greeting
    make_url
-   theater_array = MoviesNearby::Scraper.scrape(self.url)
+   theater_array = MoviesNearby::Scraper.scrape(@url)
    MoviesNearby::Theater.create_from_collection(theater_array)
    start
   end
@@ -38,7 +37,7 @@ class MoviesNearby::CLI
 
   def borough_info
    input = gets.strip
-   until input.to_i > 0 || input == "exit"
+   until input.to_i > 0  && input.to_i <= 5|| input == "exit"
      puts "Please enter a valid number or type exit"
      input = gets.strip
     end
@@ -66,23 +65,31 @@ class MoviesNearby::CLI
   end
 
   def list_theaters
-    puts "Here are the theaters for #{self.zip_code} in #{self.borough.capitalize} NY"
+    puts "Here are the theaters for #{@zip_code} in #{@borough.capitalize} NY"
     puts
     MoviesNearby::Theater.all.each.with_index(1) {|theater, index| puts "#{index}: #{theater.name}"}
     puts
     puts "Please enter one of the choices for more details:"
     input = gets.strip
+    until input.to_i > 0 && input.to_i <= MoviesNearby::Theater.all.length
+      puts "Please enter a valid number"
+      input = gets.strip
+    end
     index = input.to_i - 1
     theater = MoviesNearby::Theater.all[index]
     puts theater.name
     theater.movies.each.with_index(1) {|movie, index| puts "#{index}: #{movie}: #{theater.times[index - 1].tr("m", " ")}"}
     puts "Please enter one of the choices for more details on the movie"
     input = gets.strip
+    until input.to_i > 0 && input.to_i <= theater.movies.length
+     puts "Please enter a valid number"
+     input = gets.strip
+    end
     index = input.to_i - 1
-    self.page_url = theater.urls[index]
+    @page_url = theater.urls[index]
   end
   
   def movie_info
-   MoviesNearby::Scraper.scrape_movie_page(self.page_url)
+   MoviesNearby::Scraper.scrape_movie_page(@page_url)
   end
 end
