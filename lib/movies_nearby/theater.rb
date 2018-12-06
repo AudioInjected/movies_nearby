@@ -1,6 +1,6 @@
 class MoviesNearby::Theater 
   @@all = []
-  attr_accessor :name, :movies, :times, :urls
+  attr_accessor :name, :movies
 
   def initialize(theater_hash)
     theater_hash.each {|key, value| self.send(("#{key}="), value)}
@@ -17,8 +17,12 @@ class MoviesNearby::Theater
     @@all
   end
   
-  def self.reset!
-    @@all.clear
+  def search_for_movies
+    MoviesNearby::Movie.all.each do |movie|
+      if movie.theater_name == self.name 
+        self.movies << movie
+      end 
+    end
   end
  
 end
