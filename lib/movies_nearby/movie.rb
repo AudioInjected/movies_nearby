@@ -13,6 +13,10 @@ class MoviesNearby::Movie
    end
   end
   
+  def get_movie_info 
+    @movie_info =  MovieNearby::Scraper.scrape_movie_info(self.urls)
+  end
+  
   def self.all 
     @@all
   end

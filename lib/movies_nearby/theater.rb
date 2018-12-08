@@ -19,9 +19,7 @@ class MoviesNearby::Theater
   
   def self.search_for_movies
     MoviesNearby::Movie.all.each.with_index do |movie, index|
-     self.all[index].movies = MoviesNearby::Movie.all[index]
-      end 
-    end
+    self.all[index].movies = MoviesNearby::Movie.all[index]
+    end 
   end
- 
 end
