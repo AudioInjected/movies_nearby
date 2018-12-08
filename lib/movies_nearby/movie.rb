@@ -1,5 +1,6 @@
 class MoviesNearby::Movie
   @@all = []
+  @all = []
   attr_accessor :movies, :times, :urls, :movie_info, :theater_name
 
   def initialize(movie_hash)
@@ -13,8 +14,8 @@ class MoviesNearby::Movie
    end
   end
   
-  def get_movie_info 
-    @movie_info =  MovieNearby::Scraper.scrape_movie_info(self.urls)
+  def get_movie_info(url) 
+    @movie_info << MoviesNearby::Scraper.scrape_movie_info(url)
   end
   
   def self.all 
