@@ -22,6 +22,7 @@ class MoviesNearby::Scraper
       times = movie.css("div.movie-listing").css(".showtimes-list")
       urls = movie.css(".moviePoster a")
       movie_hash = {}
+     # movie_hash[:theater_name] = movie.css("div.title").text.tr("\t", "").tr("\n", "").split(".").last
       movie_hash[:times] = []
       movie_hash[:urls] = []
       movie_hash[:movies] = movie.css("div.movie-listing").css(".movietitle").text.gsub(/\(\d*\)/, " ").split("   ")
@@ -31,7 +32,6 @@ class MoviesNearby::Scraper
       movie_array << movie_hash
     end
     movie_array
-    binding.pry
   end
   
   def self.scrape_movie_info

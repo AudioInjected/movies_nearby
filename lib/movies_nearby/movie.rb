@@ -1,14 +1,14 @@
-class MoviesNearby::Movies 
+class MoviesNearby::Movie
   @@all = []
-  attr_accessor :name, :times, :urls, :movie_info
+  attr_accessor :movies, :times, :urls, :movie_info, :theater_name
 
   def initialize(movie_hash)
-    theater_hash.each {|key, value| self.send(("#{key}="), value)}
+    movie_hash.each {|key, value| self.send(("#{key}="), value)}
     @@all << self
   end
 
   def self.create_from_collection(movie_array)
-    theater_array.each do |movie_hash|
+    movie_array.each do |movie_hash|
     MoviesNearby::Movie.new(movie_hash)
    end
   end
