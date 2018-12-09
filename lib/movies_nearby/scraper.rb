@@ -6,32 +6,28 @@ class MoviesNearby::Scraper
     @theaters = @doc.css("div.theater")
   end
 
-  def self.scrape_theater
+ def self.scrape_theater
     theater_array = []
     @theaters.each do |theater|
       theater_hash = {}
-      theater_hash[:name] = theater.css("div.title").text.tr("\t", "").tr("\n", "").split(".").last
+     theater_hash[:name] = theater.css("div.title").text.tr("\t", "").tr("\n", "").split(".").last
+     theater_hash[:movies] = scrape_movie(theater)
       theater_array << theater_hash
     end
     theater_array
   end
   
-  def self.scrape_movie
+  def self.scrape_movie(theater)
     movies_array = []
-    @theaters.each do |movies_list|
-      movies = movies_list.css(".movie-data-wrap")
-      movies.each do |movie|
+    movies = theater.css(".movie-data-wrap")
+    movies.each do |movie|
       movie_hash = {}
-      movie_hash[:title] = movie.css(".movietitle").text
-      movie_hash[:time] = movie.css(".showtimes-list").text
-      movie_hash[:url] = movie.css(".movietitle a").attr("href").value
-      binding.pry
-      end
-    
+      movie_hash[:title] = movie.css(".movietitle").text  # title
+      movie_hash[:time] = movie.css(".showtimes-list").text  # time
+      movie_hash[:url] = movie.css(".movietitle a").attr("href").value # url
+      movies_array << movie_hash
     end
-   # @theaters.first.css(".movie-data-wrap")
-   # @theaters.first.css(".movie-data-wrap").first.css(".movietitle").text  # title
-   # @theaters.first.css(".movie-data-wrap").first.css(".showtimes-list").text  # time
+    movies_array
   end
   
   def self.scrape_movie_info(url)

@@ -1,7 +1,7 @@
 class MoviesNearby::Movie
   @@all = []
   @all = []
-  attr_accessor :movies, :times, :urls, :movie_info, :theater_name
+  attr_accessor :title, :time, :url
 
   def initialize(movie_hash)
     movie_hash.each {|key, value| self.send(("#{key}="), value)}
