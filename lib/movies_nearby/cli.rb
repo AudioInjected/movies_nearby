@@ -20,7 +20,7 @@ class MoviesNearby::CLI
  
  def start 
    list_theaters
-   movie_info
+   list_movie_info
    puts "Do you want to continue? Yes: No:"
    input = gets.strip 
    if input.downcase.include?("y")
@@ -84,22 +84,41 @@ class MoviesNearby::CLI
       input = gets.strip
     end
     index = input.to_i - 1
-    theater = MoviesNearby::Theater.all[index]
-    puts theater.name
-    #binding.pry
-    theater.movies.movies.each.with_index(1) {|movie, index| puts "#{index}: #{movie}: #{theater.movies.times[index - 1].tr("m", " ")}"} #**********************
+    @theater = MoviesNearby::Theater.all[index]
+    puts @theater.name
+    @theater.movies.movies.each.with_index(1) {|movie, index| puts "#{index}: #{movie}: #{@theater.movies.times[index - 1].tr("m", " ")}"} #**********************
     puts "Please enter one of the choices for more details on the movie"
     input = gets.strip
-    until input.to_i > 0 && input.to_i <= theater.movies.movies.length
+    until input.to_i > 0 && input.to_i <= @theater.movies.movies.length
      puts "Please enter a valid number"
      input = gets.strip
     end
     index = input.to_i - 1
-    @page_url = theater.movies.urls[index]
-    binding.pry
+    @page_url = @theater.movies.urls[index]
   end
+  
   
   def movie_info
    MoviesNearby::Scraper.scrape_movie_info(@page_url)
   end
+  
+  def list_movie_info
+    @theater.movies.movie_info = [] unless @theater.movies.movie_info
+    @theater.movies.movie_info.each do |movie|
+      if movie[:title].include? theater.movies.movies[index]
+        puts "#{movie[:title]}
+        #{movie[:release_date]}
+        #{movie[:rating]}  
+        #{movie[:description]}"
+      else 
+        info = movie_info
+        puts "#{info[:title]}
+        #{info[:release_date]}
+        #{info[:rating]}  
+        #{info[:description]}"
+        theater.movies.movie_info << info
+      end
+    end
+  end
+  
 end
