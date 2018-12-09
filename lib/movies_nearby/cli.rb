@@ -93,8 +93,8 @@ class MoviesNearby::CLI
      puts "Please enter a valid number"
      input = gets.strip
     end
-    index = input.to_i - 1
-    @page_url = @theater.movies.urls[index]
+    @movie_index = input.to_i - 1
+    @page_url = @theater.movies.urls[@movie_index]
   end
   
   
@@ -104,21 +104,37 @@ class MoviesNearby::CLI
   
   def list_movie_info
     @theater.movies.movie_info = [] unless @theater.movies.movie_info
-    @theater.movies.movie_info.each do |movie|
-      if movie[:title].include? theater.movies.movies[index]
-        puts "#{movie[:title]}
-        #{movie[:release_date]}
-        #{movie[:rating]}  
-        #{movie[:description]}"
-      else 
-        info = movie_info
-        puts "#{info[:title]}
-        #{info[:release_date]}
-        #{info[:rating]}  
-        #{info[:description]}"
-        theater.movies.movie_info << info
-      end
-    end
-  end
-  
+    if @theater.movies.movie_info.empty?
+     info = movie_info
+     puts "********Movie Info********"
+     puts "#{info[:title]}
+     #{info[:release_date]}
+     #{info[:rating]}  
+     #{info[:description]}"
+     puts
+     @theater.movies.movie_info << info
+    else
+      @theater.movies.movie_info.detect do |info|
+        binding.pry
+        if info[:title].include? @theater.movies.movies[@movie_index]
+          puts "********Movie Info********"
+          puts "#{info[:title]}
+          #{info[:release_date]}
+          #{info[:rating]}  
+          #{info[:description]}"
+          puts
+        else
+          info = movie_info
+          puts "********Movie Info********"
+          puts "#{info[:title]}
+          #{info[:release_date]}
+          #{info[:rating]}  
+          #{info[:description]}"
+          puts
+          @theater.movies.movie_info << info
+       end
+     end
+   end
+ end
+ 
 end
