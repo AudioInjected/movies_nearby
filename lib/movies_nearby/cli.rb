@@ -113,28 +113,12 @@ class MoviesNearby::CLI
      #{info[:description]}"
      puts
      @theater.movies.movie_info << info
-    else
-      @theater.movies.movie_info.detect do |info|
-        binding.pry
-        if info[:title].include? @theater.movies.movies[@movie_index]
-          puts "********Movie Info********"
-          puts "#{info[:title]}
-          #{info[:release_date]}
-          #{info[:rating]}  
-          #{info[:description]}"
-          puts
-        else
-          info = movie_info
-          puts "********Movie Info********"
-          puts "#{info[:title]}
-          #{info[:release_date]}
-          #{info[:rating]}  
-          #{info[:description]}"
-          puts
-          @theater.movies.movie_info << info
-       end
-     end
-   end
- end
+    end
+    binding.pry
+  end
  
 end
+
+#@theater.movies.movies[@movie_index]
+
+

@@ -17,21 +17,21 @@ class MoviesNearby::Scraper
   end
   
   def self.scrape_movie
-    movie_array = []
-    @theaters.each do |movie|
-      times = movie.css("div.movie-listing").css(".showtimes-list")
-      urls = movie.css(".moviePoster a")
+    movies_array = []
+    @theaters.each do |movies_list|
+      movies = movies_list.css(".movie-data-wrap")
+      movies.each do |movie|
       movie_hash = {}
-     # movie_hash[:theater_name] = movie.css("div.title").text.tr("\t", "").tr("\n", "").split(".").last
-      movie_hash[:times] = []
-      movie_hash[:urls] = []
-      movie_hash[:movies] = movie.css("div.movie-listing").css(".movietitle").text.gsub(/\(\d*\)/, " ").split("   ")
-      urls.each {|url| movie_hash[:urls] << url.attributes["href"].value}
-      movie_hash[:urls].uniq
-      times.each {|time| movie_hash[:times] << time.text}
-      movie_array << movie_hash
+      movie_hash[:title] = movie.css(".movietitle").text
+      movie_hash[:time] = movie.css(".showtimes-list").text
+      movie_hash[:url] = movie.css(".movietitle a").attr("href").value
+      binding.pry
+      end
+    
     end
-    movie_array
+   # @theaters.first.css(".movie-data-wrap")
+   # @theaters.first.css(".movie-data-wrap").first.css(".movietitle").text  # title
+   # @theaters.first.css(".movie-data-wrap").first.css(".showtimes-list").text  # time
   end
   
   def self.scrape_movie_info(url)
