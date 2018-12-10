@@ -16,9 +16,7 @@ class MoviesNearby::Movie
   end
   
   def get_movie_info 
-    if !self.movie_info
-      self.movie_info = MoviesNearby::Scraper.scrape_movie_info(url)
-    end
+    self.movie_info = MoviesNearby::Scraper.scrape_movie_info(url)
   end
   
   def self.all 

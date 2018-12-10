@@ -66,10 +66,7 @@ class MoviesNearby::CLI
   def create_theaters_movies
    MoviesNearby::Scraper.create_doc(@url)
    @theater_array = MoviesNearby::Scraper.scrape_theater
-   @movie_array =  MoviesNearby::Scraper.scrape_movie
    MoviesNearby::Theater.create_from_collection(@theater_array)
-   MoviesNearby::Movie.create_from_collection(@movie_array)
-   MoviesNearby::Theater.search_for_movies
   end
 
   def list_theaters
@@ -86,39 +83,32 @@ class MoviesNearby::CLI
     index = input.to_i - 1
     @theater = MoviesNearby::Theater.all[index]
     puts @theater.name
-    @theater.movies.movies.each.with_index(1) {|movie, index| puts "#{index}: #{movie}: #{@theater.movies.times[index - 1].tr("m", " ")}"} #**********************
+    @theater.movies.each.with_index(1) {|movie, index| puts "#{index}: #{movie.title}: #{movie.time.tr("m", " ").strip}"}
+    puts
     puts "Please enter one of the choices for more details on the movie"
     input = gets.strip
-    until input.to_i > 0 && input.to_i <= @theater.movies.movies.length
+    until input.to_i > 0 && input.to_i <= @theater.movies.length
      puts "Please enter a valid number"
      input = gets.strip
     end
     @movie_index = input.to_i - 1
-    @page_url = @theater.movies.urls[@movie_index]
-  end
-  
-  
-  def movie_info
-   MoviesNearby::Scraper.scrape_movie_info(@page_url)
   end
   
   def list_movie_info
-    @theater.movies.movie_info = [] unless @theater.movies.movie_info
-    if @theater.movies.movie_info.empty?
-     info = movie_info
-     puts "********Movie Info********"
-     puts "#{info[:title]}
-     #{info[:release_date]}
-     #{info[:rating]}  
-     #{info[:description]}"
-     puts
-     @theater.movies.movie_info << info
+    if !@theater.movies[@movie_index].movie_info
+     @theater.movies[@movie_index].get_movie_info
     end
-    binding.pry
+     movie = @theater.movies[@movie_index].movie_info
+     puts "********Movie Info********"
+     puts
+     puts "#{movie[:title]}"
+     puts "#{movie[:release_date]}"
+     puts "#{movie[:rating]}"
+     puts "#{movie[:description]}"
+     puts
   end
- 
+  
 end
 
-#@theater.movies.movies[@movie_index]
 
 
