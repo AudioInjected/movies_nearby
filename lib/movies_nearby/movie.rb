@@ -1,6 +1,5 @@
 class MoviesNearby::Movie
   @@all = []
-  @all = []
   attr_accessor :title, :time, :url
 
   def initialize(movie_hash)
@@ -9,9 +8,11 @@ class MoviesNearby::Movie
   end
 
   def self.create_from_collection(movie_array)
+    movies = []
     movie_array.each do |movie_hash|
-    MoviesNearby::Movie.new(movie_hash)
+    movies << MoviesNearby::Movie.new(movie_hash)
    end
+   movies
   end
   
   def self.all 
