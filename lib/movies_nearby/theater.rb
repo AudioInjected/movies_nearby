@@ -2,14 +2,9 @@ class MoviesNearby::Theater
   @@all = []
   attr_accessor :name, :movies
 
-  def initialize(theater_hash)
-    theater_hash.each {|key, value| self.send(("#{key}="), value)}
-    @@all << self
-  end
-  
-  def self.create_from_collection(theater_array)
+  def initialize(theater_array)
     theater_array.each do |theater_hash|
-    MoviesNearby::Theater.new(theater_hash)
+    binding.pry
    end
   end
   
@@ -17,9 +12,4 @@ class MoviesNearby::Theater
     @@all
   end
   
-  def self.search_for_movies
-    MoviesNearby::Movie.all.each.with_index do |movie, index|
-    self.all[index].movies = MoviesNearby::Movie.all[index]
-    end 
-  end
 end
