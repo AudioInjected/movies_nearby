@@ -4,7 +4,6 @@ class MoviesNearby::Theater
 
   def initialize(theater_hash)
    self.name = theater_hash[:name]
-  # self.movies = []
    self.movies = MoviesNearby::Movie.create_from_collection(theater_hash[:movies])
    @@all << self
   end

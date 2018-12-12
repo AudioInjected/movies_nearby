@@ -39,7 +39,7 @@ class MoviesNearby::CLI
    until input.to_i > 0  && input.to_i <= 5|| input == "exit"
      puts "Please enter a valid number or type exit"
      input = gets.strip
-    end
+   end
     if input.to_i == 1
       info = "bronx"
     elsif input.to_i == 2
@@ -48,7 +48,7 @@ class MoviesNearby::CLI
       info = "brooklyn"
     elsif input.to_i == 4
       info = "staten-island"
-     elsif input.to_i == 5
+    elsif input.to_i == 5
       info = "queens"  
    end
    info

@@ -1,5 +1,4 @@
 class MoviesNearby::Scraper
-# "https://www.moviefone.com/showtimes/staten-island-ny/10302/theaters/"
 
   def self.create_doc(url)
     @doc = Nokogiri::HTML(open(url))
@@ -9,10 +8,10 @@ class MoviesNearby::Scraper
  def self.scrape_theater
     theater_array = []
     @theaters.each do |theater|
-     theater_hash = {}
-     theater_hash[:name] = theater.css("div.title").text.tr("\t", "").tr("\n", "").split(".").last
-     theater_hash[:movies] = scrape_movie(theater)
-     theater_array << theater_hash
+    theater_hash = {}
+    theater_hash[:name] = theater.css("div.title").text.tr("\t", "").tr("\n", "").split(".").last
+    theater_hash[:movies] = scrape_movie(theater)
+    theater_array << theater_hash
     end
     theater_array
   end
