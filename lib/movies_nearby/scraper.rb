@@ -1,13 +1,10 @@
 class MoviesNearby::Scraper
 
-  def self.create_doc(url)
-    @doc = Nokogiri::HTML(open(url))
-    @theaters = @doc.css("div.theater")
-  end
-
- def self.scrape_theater
+ def self.scrape_theater(url)
+    doc = Nokogiri::HTML(open(url))
+    theaters = doc.css("div.theater")
     theater_array = []
-    @theaters.each do |theater|
+    theaters.each do |theater|
     theater_hash = {}
     theater_hash[:name] = theater.css("div.title").text.tr("\t", "").tr("\n", "").split(".").last
     theater_hash[:movies] = scrape_movie(theater)
